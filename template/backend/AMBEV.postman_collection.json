@@ -1,0 +1,576 @@
+{
+	"info": {
+		"_postman_id": "e0ad6f11-dbc2-4f9b-86b9-d93c31fa69b2",
+		"name": "AMBEV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1",
+		"_collection_link": ""
+	},
+	"item": [
+		{
+			"name": "Docker",
+			"item": [
+				{
+					"name": "Create User Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"testuser11\",\r\n  \"password\": \"Sorocaba1!\",\r\n  \"phone\": \"15151515\",\r\n  \"email\": \"something@gmail.com\",\r\n  \"status\": 1,\r\n  \"role\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"something@gmail.com\",\r\n  \"password\": \"Sorocaba1!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Ambev_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"branchId\": \"{{$randomUUID}}\",\r\n  \"branchName\": \"{{$randomCompanyName}}\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"5a20d735-94bb-4587-9ca0-965a9b56d789\",\r\n      \"quantity\": 15\r\n    },\r\n    {\r\n      \"productId\": \"3490b7f2-6800-48a8-a666-e2885db7851b\",\r\n      \"quantity\": 4\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/sales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sale By SaleNumber Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Ambev_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/sales/{{SaleNumber}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"sales",
+								"{{SaleNumber}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sale By DateRange Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Ambev_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/sales/filter?fromDate=2025-05-01&toDate=2025-05-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"sales",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "fromDate",
+									"value": "2025-05-01"
+								},
+								{
+									"key": "toDate",
+									"value": "2025-05-31"
+								},
+								{
+									"key": "branchId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Sale Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Ambev_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/sales/{{SaleNumber}}/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"sales",
+								"{{SaleNumber}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"cmotinha\",\r\n  \"password\": \"Sorocaba1!\",\r\n  \"phone\": \"15151515\",\r\n  \"email\": \"something@gmail.com\",\r\n  \"status\": 1,\r\n  \"role\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5119/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"something@gmail.com\",\r\n  \"password\": \"Sorocaba1!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5119/api/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sale",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"branchId\": \"{{$randomUUID}}\",\r\n  \"branchName\": \"{{$randomCompanyName}}\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"ad290f3a-7420-435e-afbc-55e55a65d867\",\r\n      \"quantity\": 15\r\n    },\r\n    {\r\n      \"productId\": \"3490b7f2-6800-48a8-a666-e2885db7851b\",\r\n      \"quantity\": 4\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5119/api/sales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sale By SaleNumber",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/sales/{{SaleNumber}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"sales",
+						"{{SaleNumber}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sale By DateRange",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/sales/filter?fromDate=2025-05-01&toDate=2025-05-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"sales",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "fromDate",
+							"value": "2025-05-01"
+						},
+						{
+							"key": "toDate",
+							"value": "2025-05-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Sale",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/sales/{{SaleNumber}}/cancel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"sales",
+						"{{SaleNumber}}",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products Invalid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/Products?pageNumber=2&pageSize=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"Products"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "2"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products Valid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/Products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products Too Many Pages",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/Products?pageNumber=1&pageSize=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"Products"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product By Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Ambev_AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5119/api/Products/3490b7f2-6800-48a8-a666-e2885db7851b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5119",
+					"path": [
+						"api",
+						"Products",
+						"3490b7f2-6800-48a8-a666-e2885db7851b"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Ambev_AccessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5YzliMGJmMS05Y2JmLTRjNDgtYWY1Yy00YWJhOWE1YTQ2YzIiLCJ1bmlxdWVfbmFtZSI6ImNtb3RpbmhhIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNzQ3MzQyOTM3LCJleHAiOjE3NDczNzE3MzcsImlhdCI6MTc0NzM0MjkzN30.b7joST676TvvzxQ7zrhlHlK9u3zwYeYzToLARvnuLhw",
+			"type": "default"
+		},
+		{
+			"key": "SaleNumber",
+			"value": "SALE-20250515-213355404-01",
+			"type": "default"
+		}
+	]
+}
